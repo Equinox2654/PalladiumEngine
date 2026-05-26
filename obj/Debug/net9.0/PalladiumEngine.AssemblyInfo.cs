@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PalladiumEngine")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+877cc8415871ce93bba6a7b3bc1964dfad150218")]
 [assembly: System.Reflection.AssemblyProductAttribute("PalladiumEngine")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PalladiumEngine")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

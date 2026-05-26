@@ -22,6 +22,8 @@ public class Sprite
 	Region = region;
     }
 
+    public virtual void Update(GameTime gameTime) { }
+
     public void CenterOrigin()
     {
 	Origin = new Vector2(Region.Width, Region.Height) / 2;

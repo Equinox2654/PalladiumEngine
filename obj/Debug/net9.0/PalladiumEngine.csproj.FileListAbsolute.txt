@@ -22,3 +22,4 @@
 /home/thibi/Workspaces/Games/PalladiumEngine/obj/Debug/net9.0/refint/PalladiumEngine.dll
 /home/thibi/Workspaces/Games/PalladiumEngine/obj/Debug/net9.0/PalladiumEngine.pdb
 /home/thibi/Workspaces/Games/PalladiumEngine/obj/Debug/net9.0/ref/PalladiumEngine.dll
+/home/thibi/Workspaces/Games/PalladiumEngine/obj/Debug/net9.0/PalladiumEngine.sourcelink.json
