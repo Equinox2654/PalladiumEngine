@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PalladiumEngine.Graphics;
@@ -7,7 +8,7 @@ namespace PalladiumEngine.Physics;
 public class KinematicBody2D
 {
     public Sprite sprite { get; private set; }
-    public readonly AnimatedSprite[] sprites;
+    public readonly Dictionary<string, AnimatedSprite> sprites;
     public readonly CollisionShape hitBox;
 
     public Vector2 Velocity = Vector2.Zero;
@@ -24,10 +25,10 @@ public class KinematicBody2D
 	this.hitBox = hitBox;
     }
 
-    public KinematicBody2D(AnimatedSprite[] sprites, CollisionShape hitBox)
+    public KinematicBody2D(Dictionary<string, AnimatedSprite> sprites, CollisionShape hitBox, string defaultAnimation)
     {
 	this.sprites = sprites;
-	sprite = sprites[0];
+	sprite = sprites[defaultAnimation];
 	this.hitBox = hitBox;
     }
 
@@ -51,7 +52,7 @@ public class KinematicBody2D
 	if (hitBox.IsColliding(other.hitBox)) hitBox.RevertToLastPos();
     }
 
-    public void ChangeAnimation(int anim)
+    public void ChangeAnimation(string anim)
     {
 	sprite = sprites[anim];
     }
