@@ -45,7 +45,7 @@ public class CollisionShape
 
     public object GetHitbox() => IsRect ? Rect : Circ;
 
-    public bool CheckCollision(CollisionShape other)
+    public bool IsColliding(CollisionShape other)
     {
 	if (other.CollisionLayer == CollisionMask)
 	{
@@ -90,4 +90,7 @@ public class CollisionShape
 	}
 	return false;
     }
+
+    public void RevertToLastPos() => Pos = LastPos;
+    public void UpdatePos(Vector2 newPos) => Pos = newPos;
 }
