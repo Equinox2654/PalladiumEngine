@@ -8,8 +8,8 @@ namespace PalladiumEngine.Physics;
 public class KinematicBody2D
 {
     public Sprite sprite { get; private set; }
-    public readonly Dictionary<string, AnimatedSprite> sprites;
-    public readonly CollisionShape hitBox;
+    public Dictionary<string, AnimatedSprite> sprites { get; private set; }
+    public CollisionShape hitBox { get; private set; }
 
     public Vector2 Velocity = Vector2.Zero;
 
