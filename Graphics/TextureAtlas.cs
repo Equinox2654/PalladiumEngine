@@ -76,7 +76,7 @@ public class TextureAtlas
 	return new AnimatedSprite(animation);
     }
 
-    public static TextureAtlas FromFile(ContentManager content, string fileName)
+    public static TextureAtlas FromXMLFile(ContentManager content, string fileName)
     {
 	TextureAtlas atlas = new TextureAtlas();
 	string filePath = Path.Combine(content.RootDirectory, fileName);

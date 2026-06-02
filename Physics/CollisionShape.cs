@@ -7,8 +7,8 @@ public class CollisionShape
     public Rectangle Rect { get; private set; }
     public Circle Circ { get; private set; }
     private bool IsRect;
-    public Vector2 LastPos { get; private set; }
-    public Vector2 Pos { get; private set; }
+    public Vector2 LastPos { get; protected set; }
+    public Vector2 Pos { get; protected set; }
     
     public int CollisionLayer { get; private set; }
     public int CollisionMask { get; private set; }
@@ -21,6 +21,17 @@ public class CollisionShape
 	Pos = Vector2.Zero;
 	CollisionLayer = 1;
 	CollisionMask = 1;
+    }
+
+    public CollisionShape(CollisionShape collisionShape)
+    {
+	IsRect = collisionShape.GetHitbox() is Rectangle;
+	Rect = collisionShape.Rect;
+	Circ = collisionShape.Circ;
+	LastPos = collisionShape.LastPos;
+	Pos = collisionShape.Pos;
+	CollisionLayer = collisionShape.CollisionLayer;
+	CollisionMask = collisionShape.CollisionMask;
     }
 
     public CollisionShape(Circle c, int collisionLayer, int collisionMask)
@@ -92,5 +103,11 @@ public class CollisionShape
     }
 
     public void RevertToLastPos() => Pos = LastPos;
-    public void UpdatePos(Vector2 newPos) => Pos = newPos;
+    public void UpdatePos(Vector2 newPos)
+    {
+	LastPos = Pos;
+	Pos = newPos;
+	if (IsRect) Rect = new Rectangle((int)newPos.X, (int)newPos.Y, Rect.Width, Rect.Height);
+	else Circ = new Circle((int)newPos.X, (int)newPos.Y, Circ.Radius);
+    }
 }

@@ -5,6 +5,7 @@ using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using PalladiumEngine.Physics;
 
 namespace PalladiumEngine.Graphics;
 
@@ -12,6 +13,7 @@ public class Tilemap
 {
     private readonly Tileset _tileset;
     private readonly int[] _tiles;
+    public StaticBody2D[] hitBoxes { get; private set; }
     public int Rows { get; }
     public int Columns { get; }
     public int Count { get; }
@@ -66,7 +68,7 @@ public class Tilemap
 	}
     }
 
-    public static Tilemap FromFile(ContentManager content, string filename)
+    public static Tilemap FromXMLFile(ContentManager content, string filename)
     {
 	string filePath = Path.Combine(content.RootDirectory, filename);
 

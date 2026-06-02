@@ -5,31 +5,26 @@ using PalladiumEngine.Graphics;
 
 namespace PalladiumEngine.Physics;
 
-public class KinematicBody2D
+public class KinematicBody2D : CollisionShape
 {
     public Sprite sprite { get; private set; }
-    public Dictionary<string, AnimatedSprite> sprites { get; private set; }
-    public CollisionShape hitBox { get; private set; }
-
+    public Dictionary<string, Sprite> sprites { get; private set; }
     public Vector2 Velocity = Vector2.Zero;
 
-    public KinematicBody2D()
+    public KinematicBody2D() : base()
     {
 	sprite = new Sprite();
-	hitBox = new CollisionShape();
     }
 
-    public KinematicBody2D(Sprite sprite, CollisionShape hitBox)
+    public KinematicBody2D(Sprite sprite, CollisionShape hitBox) : base(hitBox)
     {
 	this.sprite = sprite;
-	this.hitBox = hitBox;
     }
 
-    public KinematicBody2D(Dictionary<string, AnimatedSprite> sprites, CollisionShape hitBox, string defaultAnimation)
+    public KinematicBody2D(Dictionary<string, Sprite> sprites, CollisionShape hitBox, string defaultAnimation) : base(hitBox)
     {
 	this.sprites = sprites;
 	sprite = sprites[defaultAnimation];
-	this.hitBox = hitBox;
     }
 
     public virtual void Initialize() { }
@@ -38,18 +33,23 @@ public class KinematicBody2D
 
     public virtual void Update(GameTime gameTime)
     {
-	hitBox.UpdatePos(hitBox.Pos + Velocity);
+	UpdatePos(Pos + Velocity);
 	sprite.Update(gameTime);
     }
 
     public virtual void Draw(SpriteBatch spriteBatch)
     {
-	sprite.Draw(spriteBatch, hitBox.Pos);
+	sprite.Draw(spriteBatch, Pos);
     }
 
-    public void Collide(KinematicBody2D other)
+    public void Collide(CollisionShape other)
     {
-	if (hitBox.IsColliding(other.hitBox)) hitBox.RevertToLastPos();
+	if (IsColliding(other)) HandleCollision();
+    }
+
+    private void HandleCollision()
+    {
+	RevertToLastPos();
     }
 
     public void ChangeAnimation(string anim)
