@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -44,12 +45,32 @@ public class KinematicBody2D : CollisionShape
 
     public void Collide(CollisionShape other)
     {
-	if (CheckCollision(other)) HandleCollision();
+	if (CheckCollision(other)) HandleCollision(other);
     }
 
-    private void HandleCollision()
+    private void HandleCollision(CollisionShape other)
     {
-	RevertToLastPos();
+	if (other.IsRect && IsRect)
+	{
+	    Vector2 overlap = new Vector2(
+		    Rect.Width / 2 + other.Rect.Width / 2 - Math.Abs(Rect.Center.X - other.Rect.Center.X),
+		    Rect.Height / 2 + other.Rect.Height / 2 - Math.Abs(Rect.Center.Y - other.Rect.Center.Y)
+		);
+	    if (overlap.X < overlap.Y)
+	    {
+		if (Rect.X < other.Rect.X)
+		{
+		    float direction = Velocity.X > 0 ? -1 : 1;
+		    UpdatePos(new Vector2(Pos.X + overlap.X * direction, Pos.Y));
+		}
+		else
+		{
+		    float direction = Velocity.Y > 0 ? -1 : 1;
+		    UpdatePos(new Vector2(Pos.X, Pos.Y + overlap.Y * direction));
+		}
+	    }
+	}
+	else RevertToLastPos();
     }
 
     public void ChangeAnimation(string anim)
@@ -57,5 +78,5 @@ public class KinematicBody2D : CollisionShape
 	sprite = sprites[anim];
     }
 
-    public virtual List<CollisionShape> GetCollideable() { return [this]; }
+    public virtual List<CollisionShape> GetCollideables() { return [this]; }
 }

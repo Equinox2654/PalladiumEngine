@@ -25,4 +25,9 @@ public class CollisionHandler
 	    }
 	}
     }
+
+    public void AddCollisionShapes(List<CollisionShape> list)
+    {
+	CollisionShapes.AddRange(list);
+    }
 }
