@@ -6,7 +6,7 @@ public class CollisionShape
 {
     public Rectangle Rect { get; private set; }
     public Circle Circ { get; private set; }
-    private bool IsRect;
+    public readonly bool IsRect;
     public Vector2 LastPos { get; protected set; }
     public Vector2 Pos { get; protected set; }
     
@@ -56,7 +56,7 @@ public class CollisionShape
 
     public object GetHitbox() => IsRect ? Rect : Circ;
 
-    public bool IsColliding(CollisionShape other)
+    public bool CheckCollision(CollisionShape other)
     {
 	if (other.CollisionLayer == CollisionMask)
 	{

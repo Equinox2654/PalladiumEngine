@@ -44,7 +44,7 @@ public class KinematicBody2D : CollisionShape
 
     public void Collide(CollisionShape other)
     {
-	if (IsColliding(other)) HandleCollision();
+	if (CheckCollision(other)) HandleCollision();
     }
 
     private void HandleCollision()
@@ -56,4 +56,6 @@ public class KinematicBody2D : CollisionShape
     {
 	sprite = sprites[anim];
     }
+
+    public virtual List<CollisionShape> GetCollideable() { return [this]; }
 }
