@@ -52,21 +52,35 @@ public class KinematicBody2D : CollisionShape
     {
 	if (other.IsRect && IsRect)
 	{
-	    Vector2 overlap = new Vector2(
-		    Rect.Width / 2 + other.Rect.Width / 2 - Math.Abs(Rect.Center.X - other.Rect.Center.X),
-		    Rect.Height / 2 + other.Rect.Height / 2 - Math.Abs(Rect.Center.Y - other.Rect.Center.Y)
-		);
-	    if (overlap.X < overlap.Y)
+	    float overlapX = Rect.Width / 2 + other.Rect.Width / 2 - Math.Abs(Rect.Center.X - other.Rect.Center.X);
+	    float overlapY = Rect.Height / 2 + other.Rect.Height / 2 - Math.Abs(Rect.Center.Y - other.Rect.Center.Y);
+
+	    bool wasAbove = LastPos.Y + Rect.Height / 2 <= other.Rect.Top;
+	    bool wasBelow = LastPos.Y >= other.Rect.Bottom;
+	    bool wasLeft  = LastPos.X + Rect.Width / 2 <= other.Rect.Left;
+	    bool wasRight = LastPos.X >= other.Rect.Right;
+
+	    if (wasAbove || wasBelow)
 	    {
-		if (Rect.X < other.Rect.X)
+		float direction = Velocity.Y > 0 ? -1 : 1;
+		UpdatePos(new Vector2(Pos.X, Pos.Y + overlapY * direction));
+	    }
+	    else if (wasLeft || wasRight)
+	    {
+		float direction = Velocity.X > 0 ? -1 : 1;
+		UpdatePos(new Vector2(Pos.X + overlapX * direction, Pos.Y));
+	    }
+	    else
+	    {
+		if (overlapX < overlapY)
 		{
 		    float direction = Velocity.X > 0 ? -1 : 1;
-		    UpdatePos(new Vector2(Pos.X + overlap.X * direction, Pos.Y));
+		    UpdatePos(new Vector2(Pos.X + overlapX * direction, Pos.Y));
 		}
 		else
 		{
 		    float direction = Velocity.Y > 0 ? -1 : 1;
-		    UpdatePos(new Vector2(Pos.X, Pos.Y + overlap.Y * direction));
+		    UpdatePos(new Vector2(Pos.X, Pos.Y + overlapY * direction));
 		}
 	    }
 	}
