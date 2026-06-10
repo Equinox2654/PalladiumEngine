@@ -29,8 +29,8 @@ public class Sprite
 	Origin = new Vector2(Region.Width, Region.Height) / 2;
     }
 
-    public void Draw(SpriteBatch spriteBatch, Vector2 position)
+    public void Draw(Vector2 position)
     {
-	Region.Draw(spriteBatch, position, Color, Rotation, Origin, Scale, Effects, LayerDepth);
+	Region.Draw(Core.SpriteBatch, position, Color, Rotation, Origin, Scale, Effects, LayerDepth);
     }
 }

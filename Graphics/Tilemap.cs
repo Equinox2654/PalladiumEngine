@@ -53,7 +53,7 @@ public class Tilemap
 	return GetTile(index);
     }
 
-    public void Draw(SpriteBatch spriteBatch)
+    public void Draw()
     {
 	for (int i = 0; i < Count; i++)
 	{
@@ -64,7 +64,7 @@ public class Tilemap
 	    int y = i / Columns;
 
 	    Vector2 position = new Vector2(x * TileWidth, y * TileHeight);
-	    tile.Draw(spriteBatch, position, Color.White, 0.0f, Vector2.Zero, Scale, SpriteEffects.None, 1.0f);
+	    tile.Draw(Core.SpriteBatch, position, Color.White, 0.0f, Vector2.Zero, Scale, SpriteEffects.None, 1.0f);
 	}
     }
 
