@@ -52,7 +52,11 @@ public class StaticBody2D : CollisionShape
 	this.sprite = sprite;
     }
 
+    public StaticBody2D(CollisionShape hitBox) : base(hitBox) { }
+
+    public StaticBody2D(Rectangle rect) : base(rect, 1, 1) { }
+
     public virtual void Update(GameTime gameTime) => sprite.Update(gameTime);
 
-    public virtual void Draw(SpriteBatch spriteBatch) => sprite.Draw(spriteBatch, Pos);
+    public virtual void Draw() => sprite.Draw(Pos);
 }

@@ -1,4 +1,6 @@
+using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace PalladiumEngine.Physics;
 
@@ -110,4 +112,39 @@ public class CollisionShape
 	if (IsRect) Rect = new Rectangle((int)newPos.X, (int)newPos.Y, Rect.Width, Rect.Height);
 	else Circ = new Circle((int)newPos.X, (int)newPos.Y, Circ.Radius);
     }
+
+    private Texture2D _pixel;
+
+    public virtual void LoadContent()
+    {
+	_pixel = new Texture2D(Core.GraphicsDevice, 1, 1);
+	_pixel.SetData(new[] { Color.White });
+    }
+
+    public void DrawCollider()
+    {
+	if (IsRect)
+	{
+	    Core.SpriteBatch.Draw(
+		    _pixel,
+		    Rect,
+		    Color.Red
+		);
+	}
+	else
+	{
+	for (int y = -Circ.Radius; y <= Circ.Radius; y++)
+	    {
+		int width = (int)Math.Sqrt(Circ.Radius * Circ.Radius - y * y);
+		Core.SpriteBatch.Draw(_pixel, new Rectangle(
+		    Circ.X - width,
+		    Circ.Y + y,
+		    width * 2,
+		    1
+		), Color.Red);
+	    }
+	}
+    }
+
+    public virtual void Unloadcontent() => _pixel?.Dispose();
 }
